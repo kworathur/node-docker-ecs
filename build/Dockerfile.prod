@@ -1,4 +1,4 @@
-FROM node:14 AS build
+FROM node:18 AS build
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN npm ci --only=production
 
 COPY . .
 
-FROM gcr.io/distroless/nodejs:14
+FROM gcr.io/distroless/nodejs:18
 
 COPY --from=build /app /app
 
