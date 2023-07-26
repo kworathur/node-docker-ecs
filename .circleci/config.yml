@@ -1,9 +1,9 @@
 version: 2.1
 orbs:
   # https://circleci.com/developer/orbs/orb/circleci/node
-  node: circleci/node@4.1.0
+  node: circleci/node@5.1.0
   # https://circleci.com/developer/orbs/orb/circleci/aws-ecr
-  aws-ecr: circleci/aws-ecr@6.15.0
+  aws-ecr: circleci/aws-ecr@8.2.1
 jobs:
   test:
     executor:
@@ -27,7 +27,7 @@ workflows:
     - test
     # Envs: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_ECR_ACCOUNT_URL
     - aws-ecr/build-and-push-image:
-        repo: slackcicd
+        repo: node-docker-ecs
         tag: "latest,v0.1.${CIRCLE_BUILD_NUM}"
         dockerfile: build/Dockerfile.prod
         path: .
