@@ -19,10 +19,6 @@
     "url": "https://github.com/kworathur/node-docker-ecs/issues"
   },
   "homepage": "https://github.com/kworathur/node-docker-ecs/#readme",
-  "dependencies": {
-    "@slack/events-api": "^2.3.4",
-    "@slack/web-api": "^5.13.0"
-  },
   "devDependencies": {
     "mocha": "^10.2.0",
     "mocha-junit-reporter": "^2.0.0"
