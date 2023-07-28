@@ -13,7 +13,7 @@ resource "aws_ecs_cluster" "prod_cluster" {
 
 
 resource "aws_ecs_task_definition" "demo_app_config" {
-  family                   = "demo-app-config" # Naming our first task
+  family                   = "demo-app-config" 
   container_definitions    = <<DEFINITION
   [
     {
@@ -31,10 +31,10 @@ resource "aws_ecs_task_definition" "demo_app_config" {
     }
   ]
   DEFINITION
-  requires_compatibilities = ["FARGATE"] # Stating that we are using ECS Fargate
-  network_mode             = "awsvpc"    # Using awsvpc as our network mode as this is required for Fargate
-  memory                   = 512         # Specifying the memory our container requires
-  cpu                      = 256         # Specifying the CPU our container requires
+  requires_compatibilities = ["FARGATE"] 
+  network_mode             = "awsvpc"    
+  memory                   = 512         
+  cpu                      = 256         
   execution_role_arn       = "${aws_iam_role.ecsTaskExecutionRole.arn}"
 }
 
@@ -61,11 +61,10 @@ resource "aws_iam_role_policy_attachment" "ecsTaskExecutionRole_policy" {
 
 
 
-# Providing a reference to our default VPC
+# Providing a reference to default VPC
 resource "aws_default_vpc" "default_vpc" {
 }
 
-# Providing a reference to our default subnets
 resource "aws_default_subnet" "default_subnet_a" {
   availability_zone = "us-east-1a"
 }
@@ -80,10 +79,10 @@ resource "aws_default_subnet" "default_subnet_c" {
 
 resource "aws_ecs_service" "run_demo_app" {
   name            = "run-demo-app"                             # Naming our first service
-  cluster         = "${aws_ecs_cluster.prod_cluster.id}"             # Referencing our created Cluster
-  task_definition = "${aws_ecs_task_definition.demo_app_config.arn}" # Referencing the task our service will spin up
+  cluster         = "${aws_ecs_cluster.prod_cluster.id}"             
+  task_definition = "${aws_ecs_task_definition.demo_app_config.arn}" 
   launch_type     = "FARGATE"
-  desired_count   = 1 # Setting the number of containers we want deployed to 3
+  desired_count   = 1 
 
   network_configuration {
     subnets          = ["${aws_default_subnet.default_subnet_a.id}", "${aws_default_subnet.default_subnet_b.id}", "${aws_default_subnet.default_subnet_c.id}"]
